@@ -30,16 +30,20 @@ class Role(Resource):
 @role_ns.route('/<int:id>')
 class RoleById(Resource):
     def get(self, id):
-        return {
-            'message': f'List users if {id}'
-        }
+        """List Roles by Id"""
+        controller = RolesController()
+        return controller.get_by_id(id)
 
+    @api2.expect(request_schema.update(), validate=True)
     def put(self, id):
-        return {
-            'message': f'Roles update Id {id}'
-        }
+        """Update role by Id"""
+        controller = RolesController()
+        return controller.update(id, request.json)
 
     def delete(self, id):
-        return {
-            'message': f'Role deleted id {id}'
-        }
+        """Deleted role by Id"""
+        controller = RolesController()
+        return controller.delete(id)
+
+
+api2.add_namespace(role_ns)

@@ -1,12 +1,12 @@
 from app import db2
-from app.models.roles_model import RoleModel
-from app.schemas.roles_schema import RolesResponseSchema
+from app.models.users_model import UserModel
+from app.schemas.users_schema import UsersResponseSchema
 
 
-class RolesController:
+class UsersController:
     def __init__(self):
-        self.model = RoleModel
-        self.schema = RolesResponseSchema
+        self.model = UserModel
+        self.schema = UsersResponseSchema
 
     def all(self):
         try:
