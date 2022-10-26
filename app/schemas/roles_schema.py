@@ -1,4 +1,5 @@
 from flask_restx import fields
+from marshmallow import fields as field
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.roles_model import RoleModel
 
@@ -22,3 +23,8 @@ class RolesResponseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = RoleModel
         ordered = True
+
+    users = field.List(field.Nested('UsersResponseSchema', exclude=("role",)))
+
+# Documentation https://marshmallow.readthedocs.io/en/stable/nesting.html#nesting-a-schema-within-itself
+# maximum recursion depth exceeded while calling a python object

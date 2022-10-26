@@ -1,5 +1,7 @@
 from app.models.base import BaseModel
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
+from bcrypt import hashpw, gensalt
 
 
 class UserModel(BaseModel):
@@ -15,3 +17,9 @@ class UserModel(BaseModel):
     status = Column(Boolean, default=True)
     rol_id = Column(Integer, ForeignKey('roles.id'), default=2)
 
+    role = relationship('RoleModel', uselist=False, back_populates='users')
+
+    def hash_password(self):
+        password_encode = self.password.encode('utf-8')
+        password_hash = hashpw(password_encode, gensalt(rounds=10))
+        self.password = password_hash.decode('utf8')

@@ -40,6 +40,7 @@ class UsersController:
     def create(self, data):
         try:
             new_record = self.model.create(**data)
+            new_record.hash_password()
             db2.session.add(new_record)
             db2.session.commit()
 

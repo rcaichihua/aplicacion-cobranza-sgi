@@ -91,3 +91,7 @@ pip install flask-marshmallow
 ```shell
 pip install marshmallow-sqlalchemy
 ```
+- to encrypt password
+```shell
+pip install bcrypt
+```

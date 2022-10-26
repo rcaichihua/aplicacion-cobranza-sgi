@@ -1,9 +1,10 @@
 from flask_restx import fields
+from marshmallow import fields as field
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.users_model import UserModel
 
 
-#Solicitar al front los datos - lo que el front envia - valida los campos que se recive
+# Request the data from the front - what the front sends - validates the fields that are received
 class UsersRequestSchema:
     def __init__(self, namespace):
         self.namespace = namespace
@@ -30,8 +31,14 @@ class UsersRequestSchema:
         })
 
 
-#Lo que responde el servicio - aqui esta el serialziador - devuelve los objetos
+# What the service responds - here is the serializer - returns the objects
 class UsersResponseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = UserModel
         ordered = True
+        # include_fk = True -> use relationship in user model y rol model
+    role = field.Nested('RolesResponseSchema', only=("id", "name"), many=False)
+
+
+# Documentation https://marshmallow.readthedocs.io/en/stable/nesting.html#nesting-a-schema-within-itself
+# maximum recursion depth exceeded while calling a python object
