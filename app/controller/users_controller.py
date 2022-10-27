@@ -61,6 +61,7 @@ class UsersController:
         try:
             if record := self.model.where(id=id).first():
                 record.update(**data)
+                record.hash_password()
                 db2.session.add(record)
                 db2.session.commit()
 
