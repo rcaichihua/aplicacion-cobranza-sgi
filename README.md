@@ -2,6 +2,30 @@
 
 Collection application for the SGI(Real estate management system)
 
+- Install and created virtual environments
+
+```shell
+python -m venv venv
+```
+
+#
+
+### Activate virtual environments
+
+- windows
+
+```shell
+source venv/Scripts/activate
+```
+
+- MacOS
+
+```shell
+source venv/bin/activate
+```
+
+#
+
 - Install Flask
 
 ```shell
@@ -91,7 +115,15 @@ pip install flask-marshmallow
 ```shell
 pip install marshmallow-sqlalchemy
 ```
+
 - to encrypt password
+
 ```shell
 pip install bcrypt
+```
+
+- to created token jwt
+
+```shell
+pip install flask-jwt-extended
 ```

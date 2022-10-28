@@ -10,10 +10,13 @@ class UsersController:
 
     def all(self):
         try:
-            records = self.model.where(status=True).order_by('id').all()
+            records = self.model.where(status=True).order_by('id').paginate(
+            per_page = 2, page = 1
+            )
+            #print(records, __dict__)
             response = self.schema(many=True)
             return {
-                'data': response.dump(records)
+                'data': response.dump(records.items)
             }
         except Exception as e:
             return {

@@ -1,5 +1,5 @@
 from flask_restx import fields
-
+from flask_restx.reqparse import RequestParser
 
 class AuthRequestSchema:
     def __init__(self, namespace):
@@ -10,3 +10,13 @@ class AuthRequestSchema:
             'user_name': fields.String(required=True),
             'password': fields.String(required=True)
         })
+
+    def refresh_token(self):
+        parser = RequestParser()
+        parser.add_argument(
+            'Authorization', 
+            type=str, 
+            location='headers',
+            help='Example: Bearer (Refresh_token)'
+        )
+        return parser
