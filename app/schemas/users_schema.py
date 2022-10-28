@@ -45,6 +45,7 @@ class UsersResponseSchema(SQLAlchemyAutoSchema):
         ordered = True
         # include_fk = True -> use relationship in user model y rol model
     role = field.Nested('RolesResponseSchema', only=("id", "name"), many=False)
+    documents = field.List(field.Nested('DocumentsResponseSchema', exclude=("user",)))
 
 
 # Documentation https://marshmallow.readthedocs.io/en/stable/nesting.html#nesting-a-schema-within-itself

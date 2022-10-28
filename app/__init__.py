@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='templates')
 app.config.from_object(config_env[getenv('FLASK_ENV')])
@@ -33,3 +34,5 @@ migrate = Migrate(app, db2)
 
 jwt = JWTManager(app)
 mail = Mail(app)
+
+CORS(app)

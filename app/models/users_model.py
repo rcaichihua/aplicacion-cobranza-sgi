@@ -18,6 +18,7 @@ class UserModel(BaseModel):
     rol_id = Column(Integer, ForeignKey('roles.id'), default=2)
 
     role = relationship('RoleModel', uselist=False, back_populates='users')
+    documents = relationship('DocumentModel', uselist=True, back_populates='user')
 
     def hash_password(self):
         password_encode = self.password.encode('utf-8')
