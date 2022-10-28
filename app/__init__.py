@@ -5,9 +5,11 @@ from config import config_env
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 app = Flask(__name__, template_folder='templates')
 app.config.from_object(config_env[getenv('FLASK_ENV')])
+
 #Se cambia a apikey por Bearer
 authorization = {
   'Bearer' : {
@@ -30,3 +32,4 @@ db2 = SQLAlchemy(app)
 migrate = Migrate(app, db2)
 
 jwt = JWTManager(app)
+mail = Mail(app)

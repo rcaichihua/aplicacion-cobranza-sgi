@@ -18,15 +18,17 @@ request_schema = UsersRequestSchema(user_ns)
 @user_ns.doc(security='Bearer')
 class Users(Resource):
     @jwt_required()
+    @user_ns.expect(request_schema.all())
     def get(self):
         """List all Users"""
+        query_params = request_schema.all().parse_args()
         controller = UsersController()
-        return controller.all()
+        return controller.all(query_params['page'], query_params['per_page'])
     
     @jwt_required()
     @api2.expect(request_schema.create(), validate=True)
     def post(self):
-        """ Create new Rol """
+        """ Create new User """
         controller = UsersController()
         return controller.create(request.json)
 

@@ -1,8 +1,9 @@
-from app import api2
+from app import api2, mail
 from flask import request
 from flask_restx import Resource
 from app.schemas.auth_schema import AuthRequestSchema
 from app.controller.auth_controller import AuthController
+from flask_mail import Message
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 auth_ns = api2.namespace(
@@ -22,6 +23,16 @@ class SignIn(Resource):
         controller = AuthController()
         return controller.sign_in(request.json)
 
+
+@auth_ns.route('/reset_password')
+class ResetPassword(Resource):
+    @auth_ns.expect(request_schema.reset_password(), validate=True)
+    def post(self):
+        """Reset password user"""
+        controller = AuthController()
+        return controller.reset_password(request.json)
+
+
 @auth_ns.route('/token/refresh')
 class TokenRefresh(Resource):
     @auth_ns.expect(request_schema.refresh_token())
@@ -31,5 +42,6 @@ class TokenRefresh(Resource):
         identity = get_jwt_identity()
         controller = AuthController()
         return controller.refresh_token(identity)
+
 
 api2.add_namespace(auth_ns)

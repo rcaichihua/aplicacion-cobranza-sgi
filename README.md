@@ -127,3 +127,15 @@ pip install bcrypt
 ```shell
 pip install flask-jwt-extended
 ```
+### Mail encryption
+```properties
+MAIL_SERVER="smtp.gmail.com"
+MAIL_PORT=587
+MAIL_USE_TLS=true
+MAIL_USERNAME="rcaichihua@gmail.com"
+MAIL_PASSWORD="urczdyydjqlpronk"
+```
+- Install Send Email
+```shell
+pip install Flask-Mail
+```

@@ -8,15 +8,20 @@ class UsersController:
         self.model = UserModel
         self.schema = UsersResponseSchema
 
-    def all(self):
+    def all(self, page, per_page):
         try:
             records = self.model.where(status=True).order_by('id').paginate(
-            per_page = 2, page = 1
+                per_page=per_page, page=page
             )
-            #print(records, __dict__)
             response = self.schema(many=True)
             return {
-                'data': response.dump(records.items)
+                'results': response.dump(records.items),
+                'pagination': {
+                    'totalRecords': records.total,
+                    'totalPages': records.pages,
+                    'perPage': records.per_page,
+                    'currentPage': records.page
+                }
             }
         except Exception as e:
             return {
@@ -50,8 +55,8 @@ class UsersController:
             response = self.schema(many=False)
 
             return {
-                       'message': 'Successfully created',
-                       'data': response.dump(new_record)
+               'message': 'Successfully created',
+               'data': response.dump(new_record)
                    }, 201
         except Exception as e:
             db2.session.rollback()

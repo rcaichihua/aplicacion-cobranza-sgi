@@ -2,12 +2,19 @@ from flask_restx import fields
 from marshmallow import fields as field
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.users_model import UserModel
+from flask_restx.reqparse import RequestParser
 
 
 # Request the data from the front - what the front sends - validates the fields that are received
 class UsersRequestSchema:
     def __init__(self, namespace):
         self.namespace = namespace
+
+    def all(self):
+        parser = RequestParser()
+        parser.add_argument('page', type=int, default=1, location='args')
+        parser.add_argument('per_page', type=int, default=5, location='args')
+        return parser
 
     def create(self):
         return self.namespace.model('User Create', {
