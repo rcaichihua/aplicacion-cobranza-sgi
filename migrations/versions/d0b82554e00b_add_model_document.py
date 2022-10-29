@@ -1,8 +1,8 @@
-"""Add model documents
+"""add model document
 
-Revision ID: ab3de1136cc3
+Revision ID: d0b82554e00b
 Revises: 13f417cb23ad
-Create Date: 2022-10-28 17:16:24.574133
+Create Date: 2022-10-29 09:07:51.014032
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ab3de1136cc3'
+revision = 'd0b82554e00b'
 down_revision = '13f417cb23ad'
 branch_labels = None
 depends_on = None
@@ -23,10 +23,10 @@ def upgrade():
     sa.Column('type_doc', sa.String(length=2), nullable=True),
     sa.Column('series', sa.String(length=4), nullable=False),
     sa.Column('number', sa.String(length=8), nullable=False),
-    sa.Column('issue_date', sa.Date(), nullable=False),
-    sa.Column('collect_date', sa.Date(), nullable=True),
+    sa.Column('issue_date', sa.String(length=10), nullable=False),
+    sa.Column('collect_date', sa.String(length=10), nullable=True),
     sa.Column('process_date', sa.DateTime(), nullable=True),
-    sa.Column('amount', sa.Numeric(), nullable=False),
+    sa.Column('amount', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

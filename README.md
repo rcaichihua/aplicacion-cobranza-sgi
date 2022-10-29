@@ -134,8 +134,8 @@ pip install flask-jwt-extended
 MAIL_SERVER="smtp.gmail.com"
 MAIL_PORT=587
 MAIL_USE_TLS=true
-MAIL_USERNAME="rcaichihua@gmail.com"
-MAIL_PASSWORD="urczdyydjqlpronk"
+MAIL_USERNAME="xxxx@xxxx.com"
+MAIL_PASSWORD="xxxxxx"
 ```
 
 - Install Send Email

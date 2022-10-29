@@ -1,10 +1,9 @@
-from email.policy import default
 from flask_restx import fields
 from marshmallow import fields as field
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.documents_model import DocumentModel
 from flask_restx.reqparse import RequestParser
-
+from datetime import time
 
 # Request the data from the front - what the front sends - validates the fields that are received
 class DocumentsRequestSchema:
@@ -22,12 +21,11 @@ class DocumentsRequestSchema:
             'type_doc': fields.String(required=True, max_length=2, nullable=False),
             'series': fields.String(required=True, min_length=4, max_length=4, nullable=False),
             'number': fields.String(required=True, min_length=8, max_length=8, nullable=False),
-            'issue_date': fields.Date(required=True, nullable=False),
-            'collect_date': fields.Date(required=True, nullable=False),
-            'process_date': fields.datetime(required=False),
-            'amount': fields.Decimal(required=True),
-            'status': fields.String(required=True, min_length=1, max_length=1, nullable=False, default='P'),
-            'user_id': fields.Integer(readonly=True, default=2)
+            'issue_date': fields.String(required=True, description='Date in D/M/Y Example 06/12/2022'),
+            'collect_date': fields.String(required=True, description='Date in D/M/Y Example 06/12/2022'),
+            'amount': fields.String(required=True),
+            #'status': fields.String(required=True, min_length=1, max_length=1, nullable=False, default='P'),
+            'user_id': fields.Integer(required=True)
         })
 
     def update(self):
@@ -35,17 +33,17 @@ class DocumentsRequestSchema:
             'type_doc': fields.String(required=False, max_length=2, nullable=False),
             'series': fields.String(required=False, min_length=4, max_length=4, nullable=False),
             'number': fields.String(required=False, min_length=8, max_length=8, nullable=False),
-            'issue_date': fields.Date(required=False, nullable=False),
-            'collect_date': fields.Date(required=False, nullable=False),
-            'process_date': fields.datetime(required=False),
-            'amount': fields.Decimal(required=False),
-            'status': fields.String(required=True, min_length=1, max_length=1, nullable=False, default='P'),
-            'user_id': fields.Integer(readonly=True, default=2)
+            'issue_date': fields.String(required=False, description='Date in D/M/Y Example 06/12/2022'),
+            'collect_date': fields.String(required=False, description='Date in D/M/Y Example 06/12/2022'),
+            #'process_date': fields.DateTime(dt_format="iso8601", year=2020),
+            'amount': fields.String(required=False),
+            'status': fields.String(required=True, min_length=1, max_length=1, nullable=False, default='P', description='P: Pendiente, A: Anulado, C: Cancelado'),
+            'user_id': fields.Integer(required=False)
         })
 
 
 # What the service responds - here is the serializer - returns the objects
-class UsersResponseSchema(SQLAlchemyAutoSchema):
+class DocumentsResponseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = DocumentModel
         ordered = True
