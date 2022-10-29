@@ -56,11 +56,27 @@ class DocumentsController:
                        'message': 'An error occurred!',
                        'error': str(e)
                    }, 500
+    
+    def get_by_series_numbers(self, type, series, numbers):
+        try:
+            if record := self.model.where(id=id).first():
+                responses = self.schema(many=False)
+                return {
+                           'data': responses.dump(record)
+                       }, 200
+            return {
+                       'message': 'data Documents not Found '
+                   }, 404
+        except Exception as e:
+            return {
+                       'message': 'An error occurred!',
+                       'error': str(e)
+                   }, 500
 
     def create(self, data):
         try:
-            print('data')
             new_record = self.model.create(**data)
+            new_record.where()
             db2.session.add(new_record)
             db2.session.commit()
 

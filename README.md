@@ -1,3 +1,9 @@
+# APP de cobranza para la Sociedad de Beneficencia de Lima
+
+## El presente API permitira al sistema de gestión inmobiliario de la beneficencia de lima agilizar el proceso de cobranza al ser consumida por su sistema o cualquier otro sistema ya sea web o de escritorio, en este proyecto se ha realizado el desarrollo también de una app para consumir la API y realizar el scaneo de los códigos QR de los documentos electrónicos.
+
+Se presenta los pasos para instalar lo necesario.
+
 ## Collection application
 
 Collection application for the SGI(Real estate management system)
