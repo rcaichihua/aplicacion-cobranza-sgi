@@ -23,7 +23,7 @@ class Role(Resource):
         controller = RolesController()
         return controller.all()
 
-    @jwt_required()
+    #@jwt_required()
     @api2.expect(request_schema.create(), validate=True)
     def post(self):
         """ Create new Rol """
